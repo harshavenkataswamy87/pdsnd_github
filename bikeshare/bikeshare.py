@@ -26,7 +26,7 @@ def get_filters():
             break;
         else:
             print('Invalid City, please try again \n')
-        
+
     #Get user input for month (all, january, february, ... , june)
     while True:
         month = input('Which month would you want to see data for? All, January, February, ... , June: \n').lower()
@@ -59,7 +59,7 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     #Create a data frame from the city file name
     df = pd.read_csv(CITY_DATA[city])
     #Create a new column 'month' by extracting the month name from Start Time column
@@ -68,14 +68,14 @@ def load_data(city, month, day):
     df['day'] = pd.to_datetime(df['Start Time']).dt.weekday
     #Create a new column 'hour' by extracting the hour from Start Time column
     df['hour'] = pd.to_datetime(df['Start Time']).dt.hour
-    
+
     #Filter by selected month
     if month != 'all':
-        df = df[df['month'] == MONTH.index(month)] 
+        df = df[df['month'] == MONTH.index(month)]
     #Filter by selected day
     if day != 'all':
         df = df[df['day'] == DAY.index(day)]
-        
+
     return df
 
 
@@ -95,8 +95,8 @@ def time_stats(df, month = 'all', day = 'all'):
         print('{} had the most rentals in {} with count {}'.format(DAY[df['day'].value_counts().index[0]], month, df['day'].value_counts().values[0]))
     else:
         print('{}s in {} had {} rentals'.format(day, month, df['month'].count()))
-    
-        
+
+
     #Display the most common start hour
     print('{} was the most common start hour for rentals, count = {}'.format(df['hour'].value_counts().index[0], df['hour'].value_counts().values[0]))
 
@@ -119,7 +119,7 @@ def station_stats(df):
     #Display most frequent combination of start station and end station trip
     common_startstop_stations = (df['Start Station'] + ' to ' + df['End Station']).value_counts()
     print('{} is the most common start stop combination used {} times'.format(common_startstop_stations.index[0], common_startstop_stations.values[0]))
-    
+
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -157,11 +157,11 @@ def user_stats(df,city):
     if city != 'washington':
         print('\nCount of male and female renters')
         print(df['Gender'].value_counts())
-        
+
         print('\nThe most earliest year of birth among renters were {}'.format(int(df['Birth Year'].min())))
-        
+
         print('The most recent year of birth among renters were {}'.format(int(df['Birth Year'].max())))
-        
+
         print('{} was the most common year of birth among renters'.format(int(df['Birth Year'].mode().values[0])))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -169,10 +169,10 @@ def user_stats(df,city):
 
 def individual_trip_details(df):
     """Displays individual trip details for the filtered data using user input."""
-    
+
     axes_index = 0
     while True:
-        display_rows = input('\nDo you want to display individual entries? Enter yes or no. \n')    
+        display_rows = input('\nDo you want to display individual entries? Enter yes or no. \n')
         if 'yes' == display_rows.lower():
             loop_count = 0
             #Loop until the axes is less than number of rows in the Data frame
@@ -184,7 +184,7 @@ def individual_trip_details(df):
                 print('-'*40)
         else:
             break
-            
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -199,8 +199,7 @@ def main():
         else:
             print('No data available for {} during {} for {} days'.format(city,month,day))
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
+        if input('\nWould you like to restart? Enter yes or no.\n').lower() != 'yes':
             break
 
 
