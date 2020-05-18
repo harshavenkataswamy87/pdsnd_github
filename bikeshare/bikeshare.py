@@ -189,7 +189,13 @@ def individual_trip_details(df):
                 print('-'*40)
         else:
             break
-
+""" BikeShare is an interactive application which provides a variety of descriptive statistics for Chicago, New York & Washington cities.
+    The statistics displayed are :
+        1. Popular times of travel Most common month, day of week and hour of display.
+        2. Popular Stations and Trip Most common start station, end stations and common trip from start to end.
+        3. Trip duration Total and average travel times.
+        4. User Info Counts of each user type Counts of each Gender(for New York and Chicago only) Earliest, Most Recent, Most common year of birth(for New York and Chicago only).
+    The application also provides an option to display raw data 5 entries at a time."""
 def main():
     while True:
         city, month, day = get_filters()
