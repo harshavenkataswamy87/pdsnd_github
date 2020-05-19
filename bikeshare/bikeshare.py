@@ -201,7 +201,6 @@ def main():
         city, month, day = get_filters()
         df = load_data(city, month, day)
         if df.size:
-            print(df)
             time_stats(df, month, day)
             station_stats(df)
             trip_duration_stats(df)
@@ -210,8 +209,7 @@ def main():
         else:
             print('No data available for {} during {} for {} days'.format(city,month,day))
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
+        if input('\nWould you like to restart? Enter yes or no.\n').lower() != 'yes':
             break
 
 
